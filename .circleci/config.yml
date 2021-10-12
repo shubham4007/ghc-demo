@@ -1,8 +1,9 @@
 version: 2.1
-worklows:
+
+workflows:
   test-deploy:
     jobs:
-      -test
+      - test
 
 jobs:
   test:
@@ -11,12 +12,14 @@ jobs:
     steps:
       - checkout
       - run: node --version
+
       - run:
           name: Install dependencies
           command: npm install
       - run:
           name: Run tests
-          command: npm run test 
+          command: npm run test      
+      
 
 
    
