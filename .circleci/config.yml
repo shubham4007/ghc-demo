@@ -18,7 +18,10 @@ jobs:
           command: npm install
       - run:
           name: Run tests
-          command: npm run test      
+          command: npm run test  
+      - run:
+          name: Install jFrog CLI
+          command: curl -fL https://getcli.jfrog.io | sh    
       
 
 
