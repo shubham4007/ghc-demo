@@ -18,12 +18,10 @@ jobs:
             - node-v1-
 
       - checkout
-      - run: node --version
+      - run: ls
       - run: pwd
 
-      - run:
-          name: Install dependencies
-          command: npm install
+      
       - run:
           name: Run tests
           command: npm run test
