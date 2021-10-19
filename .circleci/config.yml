@@ -19,6 +19,7 @@ jobs:
 
       - checkout
       - run: node --version
+      - run: pwd
 
       - run:
           name: Install dependencies
