@@ -10,6 +10,13 @@ jobs:
     docker:
       - image: cimg/node:16.10.0
     steps:
+      - restore_cache:
+          keys:
+        # when lock file changes, use increasingly general patterns to restore cache
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+
       - checkout
       - run: node --version
 
@@ -18,10 +25,12 @@ jobs:
           command: npm install
       - run:
           name: Run tests
-          command: npm run test  
-      - run:
-          name: Install jFrog CLI
-          command: curl -fL https://getcli.jfrog.io | sh    
+          command: npm run test
+      - save_cache:
+          paths:
+            - ~/usr/local/lib/node_modules  # location depends on npm version
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}  
+          
       
 
 
