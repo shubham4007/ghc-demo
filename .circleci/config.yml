@@ -10,6 +10,7 @@ jobs:
     docker:
       - image: cimg/node:16.10.0
     steps:
+<<<<<<< HEAD
       - checkout      
       - run:
  
@@ -33,6 +34,27 @@ jobs:
  
           command: echo ${LT_USERNAME}
       
+=======
+      - restore_cache:
+          keys:
+        # when lock file changes, use increasingly general patterns to restore cache
+            - myapp-{{ checksum "package-lock.json" }}
+           
+
+      - checkout
+      - run: ls
+      - run: pwd
+      - run: npm install
+
+      
+      - run:
+          name: Run tests
+          command: npm run test
+      - save_cache:
+          paths:
+            - ~/usr/local/lib/node_modules  # location depends on npm version
+          key: myapp-{{ checksum "package-lock.json" }}  
+>>>>>>> e022fd94421a7405108e8eb569a702b05c3e2cd8
           
       
 
