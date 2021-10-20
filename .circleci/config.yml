@@ -10,27 +10,29 @@ jobs:
     docker:
       - image: cimg/node:16.10.0
     steps:
-      - restore_cache:
-          keys:
-        # when lock file changes, use increasingly general patterns to restore cache
-            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-v1-{{ .Branch }}-
-            - node-v1-
-
-      - checkout
-      - run: node --version
-      - run: pwd
-
+      - checkout      
       - run:
-          name: Install dependencies
-          command: npm install
+ 
+          name: "Setup custom environment variables // its your workflow step"
+ 
+          command: |
+ 
+            echo 'export LT_USERNAME="shubhamsaini4006"' >> $BASH_ENV
+ 
       - run:
-          name: Run tests
-          command: npm run test
-      - save_cache:
-          paths:
-            - ~/usr/local/lib/node_modules  # location depends on npm version
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}  
+ 
+          name: "Setup custom environment variables"
+ 
+          command: |
+ 
+            echo 'export LT_ACCESS_KEY="{JM8vmhqFvnmjDNiVjfRbciwqoKrOH8d9CzC37kTkRajjaaOPGH}"' >> $BASH_ENV
+ 
+      - run: # Validating your above mentioned environment variables
+ 
+          name: "Here is the LT_Username : "
+ 
+          command: echo ${LT_USERNAME}
+      
           
       
 
